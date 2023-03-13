@@ -1,22 +1,10 @@
-const mongoose = require('mongoose')
- 
-mongoose.set('strictQuery', true);
-
-const connection = ()=>{
-
-    mongoose.connect(process.env.connectionURL+'/'+process.env.db_name)
- 
-    .then(()=>{
-   
-       console.log('Database Connected')
-    })
-   
-    .catch((er)=>{
-   
-       console.log(er.message)
-    })
-
-} 
-
-
-module.exports = connection
+const mongoose=require('mongoose')
+const db = ()=>{
+    try {
+        const con=mongoose.connect(process.env.mongodb_url)
+        console.log('mongodb connected')
+    } catch (error) {
+        console.log(error)
+    }    
+    }
+module.exports=db
