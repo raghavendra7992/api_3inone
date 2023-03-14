@@ -1,8 +1,8 @@
 const axios = require("axios");
 const asynchandler=require("express-async-handler");
-const SalesData = require("../models/productModel.js");
+const Product = require("../models/productModel.js");
 
-exports.getData = async (req, res, next) => {
+exports.getData = async (req, res) => {
   try {
     const response = await axios.get(
       "https://s3.amazonaws.com/roxiler.com/product_transaction.json"
@@ -19,10 +19,10 @@ exports.getData = async (req, res, next) => {
         sold,
         dateOfSale,
       } = data[i];
-      SalesData.find({ id: id })
+      Product.find({ id: id })
         .then((data) => {
           if (data.length==0) {
-            const salesData = new SalesData({
+            const salesData = new Product({
               id: id,
               title: title,
               price: price,

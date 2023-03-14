@@ -1,56 +1,4 @@
-const SalesData=require("../models/productModel.js");
-// const asynchandler=require("express-async-handler");
-
-
-// const getMonth=(month)=>{
-//     month=month.toLowercase();
-//     if (month === "january") return "01";
-//   else if (month === "february") return "02";
-//   else if (month === "march") return "03";
-//   else if (month === "april") return "04";
-//   else if (month === "may") return "05";
-//   else if (month === "june") return "06";
-//   else if (month === "july") return "07";
-//   else if (month === "august") return "08";
-//   else if (month === "september") return "09";
-//   else if (month === "october") return "10";
-//   else if (month === "november") return "11";
-//   else if (month === "december") return "12";
-//   return month;
-// };
-
-// //get sale date
-// const getSaledate=asynchandler(async(req,res)=>{
-//     const month=req.params.month;
-//     try {
-//         const userprod= await Product.findById({monthOfSale:getMonth(month)})
-//         .then((data)=>{
-//             let totalsaleamt=0,
-//             totalnumofsolditm=0,
-//             totalnumofunsolditm=0;
-//             for(let i=0;i<data.length;i++){
-//                 if(data[i].sold){
-//                     totalnumofsolditm+=1;
-//                     totalsaleamt+=data[i].price;
-
-//                 }else totalnumofunsolditm+=1;
-//             }
-//         }) 
-//         res.json(userprod)
-//     } catch (error) {
-//         throw new Error(error)
-//     }
-// })
-
-
-
-
-
-
-
-// module.exports ={
-//     getSaledate
-// }
+const Product=require("../models/productModel.js");
 
 function getMonth(month) {
     month = month.toLowerCase();
@@ -68,9 +16,9 @@ function getMonth(month) {
     else if (month === "december") return "12";
     return month;
   }
-  exports.getSales = (req, res, next) => {
+  exports.getSales = (req, res) => {
     const month = req.params.month;
-    SalesData.find({ monthOfSale: getMonth(month) })
+    Product.find({ monthOfSale: getMonth(month) })
       .then((data) => {
         let totalSaleAmount = 0,
           totalNumberOfSoldItems = 0,
@@ -94,9 +42,9 @@ function getMonth(month) {
       });
   };
   
-  exports.getBar = (req, res, next) => {
+  exports.getBar = (req, res) => {
     const month = req.params.month;
-    SalesData.find({ monthOfSale: getMonth(month) })
+    Product.find({ monthOfSale: getMonth(month) })
       .then((data) => {
         let itemsInPriceRange = {
           "0-100": 0,
@@ -137,7 +85,7 @@ function getMonth(month) {
   
   exports.getPie = (req, res, next) => {
     const month = req.params.month;
-    SalesData.find({ monthOfSale: getMonth(month) })
+    Product.find({ monthOfSale: getMonth(month) })
       .then((data) => {
         let categories = {};
         for (let x = 0; x < data.length; x++) {
@@ -163,7 +111,7 @@ function getMonth(month) {
 
   exports.combineData = (req, res, next) => {
     const month = req.params.month;
-   SalesData.find({ monthOfSale: getMonth(month) })
+   Product.find({ monthOfSale: getMonth(month) })
       .then((data) => {
         let totalSaleAmount = 0,
           totalNumberOfSoldItems = 0,
@@ -179,7 +127,7 @@ function getMonth(month) {
 
 
 
-     SalesData.find({ monthOfSale: getMonth(month) })
+     Product.find({ monthOfSale: getMonth(month) })
       .then((data) => {
         let itemsInPriceRange = {
           "0-100": 0,
@@ -208,7 +156,7 @@ function getMonth(month) {
           else itemsInPriceRange["901-above"]++;
         }
       
-     SalesData.find({ monthOfSale: getMonth(month) })
+     Product.find({ monthOfSale: getMonth(month) })
       .then((data) => {
         let categories = {};
         for (let x = 0; x < data.length; x++) {
